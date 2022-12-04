@@ -12,6 +12,9 @@ import "./assets/css/index.css"
 
 /**
  * git init
+ * git add .
+ * git commit -m "备份"
+ * 
  */
 
 const app = createApp(App)
