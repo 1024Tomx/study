@@ -23,6 +23,13 @@ const router = createRouter({
       path:'/message',
       component:()=>import("@/pages/message/message.vue")
     },
+    {
+      path:'/city',
+      component:()=>import("@/pages/city/city.vue"),
+      // meta:{
+      //   showTabbar: true
+      // }
+    },
   ]
 })
 

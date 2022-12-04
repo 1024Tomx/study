@@ -15,6 +15,8 @@ import "./assets/css/index.css"
  * git add .
  * git commit -m "备份"
  * git remote -v  查看关联
+ * git remote add origin
+ * git push
  * 
  */
 
