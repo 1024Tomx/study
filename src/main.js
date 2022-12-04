@@ -14,6 +14,7 @@ import "./assets/css/index.css"
  * git init
  * git add .
  * git commit -m "备份"
+ * git remote -v  查看关联
  * 
  */
 
