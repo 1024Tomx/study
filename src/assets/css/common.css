@@ -1,3 +1,9 @@
+:root{
+  --van-blue:#ff9954 !important;
+  --line-color:#faf8f9;
+  --theme-linear-gradient:linear-gradient(90deg, #fa8c1d, #fcaf3f);
+}
+
 body{
   font-size: 14px;
   /* font-family: 'Courier New', Courier, monospace; */
@@ -13,5 +19,9 @@ body{
 }
 .inp-icon {
   color: #ff9854 !important;
+}
+
+.bottom-gray-line{
+  border-bottom: 1px solid var(--line-color);
 }
 /* 全局修改再这里修改 */

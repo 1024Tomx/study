@@ -1,25 +1,23 @@
 <template>
   <!-- <div class="tabbar"> -->
     <el-menu
-    :default-active="currentIndex"
-    active-text-color="#ff9854"
-    router
-    class="tabbar"
-    @select="handleSelect"
-  >
-    <el-menu-item
-      v-for="item,index in tabbarData"
-      :key="index+''"
-      :route="item.path"
-      class="tabbar-item"
-      :index="index+''">
-      <template #title>
-        <img v-if="(currentIndex!==index+'')" class="img" :src="getAssetUrl(item.image)" alt="">
-        <img v-else class="img" :src="getAssetUrl(item.activeImage)" alt="">
-        <span class="text">{{item.text}}</span>
-      </template>
-    </el-menu-item>
-  </el-menu>
+      :default-active="route.path"
+      active-text-color="#ff9854"
+      router
+      class="tabbar"
+    >
+      <el-menu-item
+        v-for="item,index in tabbarData"
+        :key="index+''"
+        class="tabbar-item"
+        :index="item.path">
+        <template #title>
+          <img v-if="(currentIndex!==item.path)" class="img" :src="getAssetUrl(item.image)" alt="">
+          <img v-else class="img" :src="getAssetUrl(item.activeImage)" alt="">
+          <span class="text">{{item.text}}</span>
+        </template>
+      </el-menu-item>
+    </el-menu>
     <!-- <template v-for="(item, index) in tabbarData" :key="index+''">
       <div  
         @click="itemClick(index,item.path)"
@@ -35,30 +33,24 @@
 
 <script setup>
   import tabbarData from '@/assets/data/tabbar'
-  import {getAssetUrl} from "@/utils/get_assets_img"
-  import { ref } from 'vue';
-  import { useRouter } from 'vue-router';
-  // const getAssetUrl=(image)=>{
-  //   // 参数1 当前路径的url
-  //   // 参数2 相对路径
-  //   return new URL(`../../assets/img/${image}`,import.meta.url).href
-  // }
-  const router = useRouter()
-  const currentIndex = ref("0")
-  const itemClick = (index,item)=>{
-    currentIndex.value = index
-    router.push(item)
-  }
-  const handleSelect = (key, keyPath) => {
-    console.log(key);
-    currentIndex.value = key
-  }
+  import { getAssetUrl } from "@/utils/get_assets_img"
+  import { ref, watch } from 'vue';
+  import { useRoute } from 'vue-router';
+  const route = useRoute()
+
+  // 监听路由的变化，找到对应的索引，设置值
+  const currentIndex = ref(route.path)
+  watch(route,(n)=>{
+    const index = tabbarData.findIndex(item=>item.path === n.path)
+    if(index === -1)return
+    currentIndex.value = n.path
+  })
 </script>
 
 <style scoped>
 .tabbar{
   position: fixed;
-  bottom: 0;
+  bottom: -4px;
   left: 0;
   right: 0;
   height: 50px;
@@ -69,6 +61,7 @@
 .tabbar-item{
   flex: 1;
   line-height: 20px;
+  padding-bottom: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -85,7 +78,7 @@
 }
 
 /* 修改样式的方法
-   1.重写变量的值  强制生效 !important
+   1.重写变量的值  强制生效 !important:提高权重
     当前文件中的元素以及子元素生效
    2.找到类,对CSS属性进行重写(不能直接修改)
     scoped 只针对当前作用域，所以直接修改没有效果

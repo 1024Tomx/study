@@ -30,6 +30,14 @@ const router = createRouter({
       //   showTabbar: true
       // }
     },
+    {
+      path:'/search',
+      component:()=>import("@/pages/search/search.vue")
+    },
+    {
+      path:'/detail/:id',
+      component:()=>import("@/pages/detail/detail.vue")
+    },
   ]
 })
 
